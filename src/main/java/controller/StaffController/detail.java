@@ -25,10 +25,8 @@ public class detail extends HttpServlet {
             case "userdetail":
                 String username = req.getParameter("username");
                 try {
-                    System.out.println("doGet user with username: " + username);
                     UserBO userBO = new UserBO();
                     User user = userBO.getUserDetail(username);
-                    System.out.println("user: " + user.getHoten());
                     req.setAttribute("user", user);
                     req.getRequestDispatcher("/staffjsp/manageUser/detail.jsp").forward(req, resp);
 //                    if (Objects.equals(user.getUsername(), username)) {
@@ -42,7 +40,6 @@ public class detail extends HttpServlet {
             case "roomdetail":
                 String id = req.getParameter("id");
                 try {
-                    System.out.println("doGet nhanvien with id: " + id);
                     RoomBO roomBO = new RoomBO();
                     Room room = roomBO.getRoomDetail(Integer.parseInt(id));
                     req.setAttribute("room", room);

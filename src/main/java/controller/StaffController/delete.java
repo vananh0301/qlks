@@ -28,7 +28,6 @@ public class delete extends HttpServlet {
                 try {
                     UserBO userBO = new UserBO();
                     List<User> arrayList = userBO.getAllUsers();
-                    System.out.println("Size: " + arrayList.size()+"lo");
                     if(!arrayList.isEmpty()){;
                         String destination = "/staffjsp/manageUser/delete.jsp";
                         req.setAttribute("user", arrayList);
@@ -42,7 +41,6 @@ public class delete extends HttpServlet {
                 try {
                     RoomBO roomBO = new RoomBO();
                     List<Room> arrayList = roomBO.getAllRooms();
-                    System.out.println("Size: " + arrayList.size());
                     if(!arrayList.isEmpty()){;
                         String destination = "/staffjsp/manageRoom/delete.jsp";
                         req.setAttribute("room", arrayList);
@@ -59,7 +57,6 @@ public class delete extends HttpServlet {
         String action = req.getParameter("action");
         switch (action) {
             case "userdelete":
-                System.out.println("Full request parameters: ");
                 req.getParameterMap().forEach((key, value) -> System.out.println(key + ": " + String.join(",", value)));
                 String[] selectedIds = req.getParameterValues("selectedIds");
                 if (selectedIds != null) {
@@ -78,7 +75,6 @@ public class delete extends HttpServlet {
                 }
                 break;
             case "roomdelete":
-                System.out.println("Full request parameters: ");
                 req.getParameterMap().forEach((key, value) -> System.out.println(key + ": " + String.join(",", value)));
                 String[] selectedIds1 = req.getParameterValues("selectedIds");
                 if (selectedIds1 != null) {

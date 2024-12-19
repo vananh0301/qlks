@@ -52,7 +52,6 @@ public class create extends HttpServlet {
         String hoten = req.getParameter("hoten");
         String sdt = req.getParameter("sdt");
         User user = new User(username, password, role, hoten, sdt);
-        System.out.println(user);
         try {
             System.out.println("doPost nhanvien/create");
             System.out.println(req.getContextPath());
@@ -76,7 +75,6 @@ public class create extends HttpServlet {
         BigDecimal price = new BigDecimal(req.getParameter("price"));
         String status = req.getParameter("status");
         Room room = new Room(id, name, price, status);
-        System.out.println(room);
         try {
             RoomBO roomBO = new RoomBO();
             Room a = roomBO.addRoom(room);

@@ -37,10 +37,8 @@ public class _index extends HttpServlet {
 
     public void userindex(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-        	System.out.println("alo");
             UserBO userBO = new UserBO();
             List<User> arrayList = userBO.getAllUsers();
-            System.out.println("Size: " + arrayList.size());
             if(!arrayList.isEmpty()){;
                 String destination = "/staffjsp/manageUser/index.jsp";
                 req.setAttribute("user", arrayList);
@@ -55,7 +53,6 @@ public class _index extends HttpServlet {
         try {
             RoomBO roomBO = new RoomBO();
             List<Room> arrayList = roomBO.getAllRooms();
-            System.out.println("Size: " + arrayList.size());
             if(!arrayList.isEmpty()){;
                 String destination = "/staffjsp/manageRoom/index.jsp";
                 req.setAttribute("room", arrayList);
