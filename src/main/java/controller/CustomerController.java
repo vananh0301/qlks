@@ -111,7 +111,7 @@ public class CustomerController extends HttpServlet {
 		if (isSuccess) {
 			request.getSession().setAttribute("currentUser", username);
 			request.setAttribute("danhSachPhong", roomBO.getAllRooms());
-			request.getRequestDispatcher("/customerjsp//xemthongtinPhong.jsp").forward(request, response);
+			request.getRequestDispatcher("/customerjsp/xemthongtinPhong.jsp").forward(request, response);
 		} else {
 			request.setAttribute("errorMessage", "Tài khoản hoặc mật khẩu không đúng.");
 			request.getRequestDispatcher("/customerjsp/login.jsp").forward(request, response);

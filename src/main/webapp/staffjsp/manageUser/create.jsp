@@ -4,6 +4,14 @@
   <title>Tạo mới User</title>
 </head>
 <body>
+<%
+        String currentAdmin = (String) session.getAttribute("currentAdmin");
+        if (currentAdmin == null) {
+            // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập
+            response.sendRedirect("login_admin.jsp");
+            return;
+        }
+    %>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <div class="container mt-5">
   <h2>Tạo mới User</h2>
@@ -16,10 +24,17 @@
       <label for="password">Password</label>
       <input type="password" class="form-control" id="password" name="password" required>
     </div>
-    <div class="form-group">
+    <!-- <div class="form-group">
       <label for="role">Role</label>
       <input type="text" class="form-control" id="role" name="role" required>
-    </div>
+    </div> -->
+    <div class="form-group">
+    	<label for="role">Role</label>
+    	<select class="form-control" id="role" name="role" required>
+        	<option value="customer">Customer</option>
+        	<option value="staff">Staff</option>
+    	</select>
+	</div>
     <div class="form-group">
       <label for="hoten">Họ tên</label>
       <input type="text" class="form-control" id="hoten" name="hoten" required>

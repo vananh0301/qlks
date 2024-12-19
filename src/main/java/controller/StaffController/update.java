@@ -33,28 +33,29 @@ public class update extends HttpServlet {
                     UserBO userBO = new UserBO();
                     User user = userBO.getUserDetail(username);
                     System.out.println("user: " + user.getHoten());
-                    if (Objects.equals(user.getUsername(), username)) {
-                        req.setAttribute("user", user);
-                        req.getRequestDispatcher("/staffjsp/manageUser/detail.jsp").forward(req, resp);
-                    } else System.out.println("Cannot");
+                    req.setAttribute("user", user);
+                    req.getRequestDispatcher("/staffjsp/manageUser/update.jsp").forward(req, resp);
+//                    if (Objects.equals(user.getUsername(), username)) {
+//                        req.setAttribute("user", user);
+//                        req.getRequestDispatcher("/staffjsp/manageUser/detail.jsp").forward(req, resp);
+//                    } else System.out.println("Cannot");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
             case "roomupdate":
-                String id = req.getParameter("id");
-                try {
-                    System.out.println("doGet nhanvien with id: " + id);
-                    RoomBO roomBO = new RoomBO();
-                    Room room = roomBO.getRoomDetail(Integer.parseInt(id));
-                    System.out.println("room: " + room.getId());
-                    if (Objects.equals(room.getId(), id)) {
-                        req.setAttribute("room", room);
-                        req.getRequestDispatcher("/staffjsp/manageRoom/detail.jsp").forward(req, resp);
-                    } else System.out.println("Cannot");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            	 String id = req.getParameter("id");
+                 try {
+                     System.out.println("doGet nhanvien with id: " + id);
+                     RoomBO roomBO = new RoomBO();
+                     Room room = roomBO.getRoomDetail(Integer.parseInt(id));
+                     System.out.println("room: " + room.getId());
+                     req.setAttribute("room", room);
+                     req.getRequestDispatcher("/staffjsp/manageRoom/update.jsp").forward(req, resp);
+                     
+                 } catch (Exception e) {
+                     e.printStackTrace();
+                 }
         }
     }
 
@@ -72,10 +73,17 @@ public class update extends HttpServlet {
                     UserBO userBO = new UserBO();
                     User user = new User(username, password, role, hoten, sdt);
                     int update = userBO.updateUser(user);
-                    System.out.println("user affected: " + update);
-                    req.setAttribute("updateMessage", "Cap nhat user");
-                    req.setAttribute("user", user);
-                    req.getRequestDispatcher("/staffisp/manageUser/detail.jsp").forward(req, resp);
+                    
+                    if (update>=1) {
+                    	req.setAttribute("updateMessage", "Cap nhat thanh cong");
+                    	req.setAttribute("user", user);
+                        req.getRequestDispatcher("/staffjsp/manageUser/update.jsp").forward(req, resp);
+                    }
+                    else {
+                    	req.setAttribute("updateMessage", "Cap nhat that bai");
+                    	req.setAttribute("user", user);
+                        req.getRequestDispatcher("/staffjsp/manageUser/update.jsp").forward(req, resp);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -89,10 +97,17 @@ public class update extends HttpServlet {
                     RoomBO roomBO = new RoomBO();
                     Room room = new Room(id, name, price, status);
                     int update = roomBO.updateRoom(room);
-                    System.out.println("room affected: " + update);
-                    req.setAttribute("updateMessage", "Cap nhat room");
-                    req.setAttribute("room", room);
-                    req.getRequestDispatcher("/staffisp/manageRoom/detail.jsp").forward(req, resp);
+                    if (update>=1) {
+                    	req.setAttribute("updateMessage", "Cap nhat thanh cong");
+                        req.setAttribute("room", room);
+                        req.getRequestDispatcher("/staffjsp/manageRoom/update.jsp").forward(req, resp);
+                    }
+                    else {
+                    	req.setAttribute("updateMessage", "Cap nhat that bai");
+                        req.setAttribute("room", room);
+                        req.getRequestDispatcher("/staffjsp/manageRoom/update.jsp").forward(req, resp);
+                    }
+                    
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

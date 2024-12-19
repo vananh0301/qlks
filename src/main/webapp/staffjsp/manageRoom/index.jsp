@@ -39,6 +39,14 @@
   </style>
 </head>
 <body>
+<%
+        String currentAdmin = (String) session.getAttribute("currentAdmin");
+        if (currentAdmin == null) {
+            // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập
+            response.sendRedirect("login_admin.jsp");
+            return;
+        }
+    %>
 <div class="container mt-5">
   <h2 class="text-center mb-4">Danh sach Phong</h2>
   <table class="table table-bordered table-striped table-custom">
@@ -63,14 +71,18 @@
       <td><%= room.getPrice() %></td>
       <td><%= room.getStatus() %></td>
       <td>
-        <form action="${pageContext.request.contextPath}/StaffController/detail?action=roomdetail" method="get" class="d-inline">
+      	<!-- <a href="${pageContext.request.contextPath}/StaffController/detail?action=roomdetail&id=<%=room.getId()%>">Chi tiết</a> -->
+       <form action="${pageContext.request.contextPath}/StaffController/detail" method="get" class="d-inline">
           <input type="hidden" name="id" value="<%= room.getId() %>"/>
-          <button type="submit" class="btn btn-primary btn-custom">Chi tiet</button>
+          <input type="hidden" name="action" value="roomdetail">
+          <button type="submit" class="btn btn-primary btn-custom">Chi tiết</button>
         </form>
-        <form action="${pageContext.request.contextPath}/StaffController/update?action=roomupdate" method="get" class="d-inline">
+        <form action="${pageContext.request.contextPath}/StaffController/update" method="get" class="d-inline">
           <input type="hidden" name="id" value="<%= room.getId() %>"/>
-          <button type="submit" class="btn btn-warning btn-custom">Cap nhat</button>
+          <input type="hidden" name="action" value="roomupdate">
+          <button type="submit" class="btn btn-warning btn-custom">Cập nhật</button>
         </form>
+        
       </td>
     </tr>
     <%
@@ -86,9 +98,9 @@
     </tbody>
   </table>
   <div class="mt-4">
-    <a href="${pageContext.request.contextPath}/StaffController/create?action=roomcreate" class="btn btn-create btn-custom">Tao phong moi</a>
-    <a href="../dashboard.jsp" class="btn btn-back btn-custom">Tro ve trang chu</a>
-    <a href="${pageContext.request.contextPath}/StaffController/delete?action=roomdelete" class="btn btn-delete btn-custom">Xoa phong</a>
+    <a href="${pageContext.request.contextPath}/StaffController/create?action=roomcreate" class="btn btn-create btn-custom">Tạo phòng mới</a>
+    <a href="${pageContext.request.contextPath}/StaffController/delete?action=roomdelete" class="btn btn-delete btn-custom">Xóa phòng</a>
+    <a href="${pageContext.request.contextPath}/staffjsp/dashboard.jsp" class="btn btn-back btn-custom">Trở về trang chủ</a>
   </div>
 </div>
 

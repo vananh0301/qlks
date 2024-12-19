@@ -39,6 +39,14 @@
   </style>
 </head>
 <body>
+<%
+        String currentAdmin = (String) session.getAttribute("currentAdmin");
+        if (currentAdmin == null) {
+            // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập
+            response.sendRedirect("login_admin.jsp");
+            return;
+        }
+    %>
 <div class="container mt-5">
   <h2 class="text-center mb-4">Danh sach User</h2>
   <table class="table table-bordered table-striped table-custom">
@@ -65,13 +73,15 @@
       <td><%= user.getHoten() %></td>
       <td><%= user.getSdt() %></td>
       <td>
-        <form action="${pageContext.request.contextPath}/StaffController/detail?action=userdetail" method="get" class="d-inline">
-          <input type="hidden" name="id" value="<%= user.getUsername() %>"/>
-          <button type="submit" class="btn btn-primary btn-custom">Chi tiet</button>
+        <form action="${pageContext.request.contextPath}/StaffController/detail" method="get" class="d-inline">
+          <input type="hidden" name="username" value="<%= user.getUsername() %>"/>
+          <input type="hidden" name="action" value="userdetail">
+          <button type="submit" class="btn btn-primary btn-custom">Chi tiết</button>
         </form>
-        <form action="${pageContext.request.contextPath}/StaffController/update?action=userupdate" method="get" class="d-inline">
-          <input type="hidden" name="id" value="<%= user.getUsername() %>"/>
-          <button type="submit" class="btn btn-warning btn-custom">Cap nhat</button>
+        <form action="${pageContext.request.contextPath}/StaffController/update" method="get" class="d-inline">
+          <input type="hidden" name="username" value="<%= user.getUsername() %>"/>
+          <input type="hidden" name="action" value="userupdate">
+          <button type="submit" class="btn btn-warning btn-custom">Cập nhật</button>
         </form>
       </td>
     </tr>
@@ -88,9 +98,9 @@
     </tbody>
   </table>
   <div class="mt-4">
-    <a href="${pageContext.request.contextPath}/StaffController/create?action=usercreate" class="btn btn-create btn-custom">Tao User moi</a>
-    <a href="../dashboard.jsp" class="btn btn-back btn-custom">Tro ve trang chu</a>
-    <a href="${pageContext.request.contextPath}/StaffController/delele?action=userdelete" class="btn btn-delete btn-custom">Xoa User</a>
+    <a href="${pageContext.request.contextPath}/StaffController/create?action=usercreate" class="btn btn-create btn-custom">Tạo User mới</a>
+    <a href="${pageContext.request.contextPath}/StaffController/delete?action=userdelete" class="btn btn-delete btn-custom">Xóa User</a>
+        <a href="${pageContext.request.contextPath}/staffjsp/dashboard.jsp" class="btn btn-back btn-custom">Trở về trang chủ</a>
   </div>
 </div>
 

@@ -41,6 +41,14 @@
     </style>
 </head>
 <body>
+    <%
+        String currentAdmin = (String) session.getAttribute("currentAdmin");
+        if (currentAdmin == null) {
+            // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập
+            response.sendRedirect("login_admin.jsp");
+            return;
+        }
+    %>
 <div class="container">
     <div class="card">
         <div class="card-header text-center">
@@ -49,20 +57,20 @@
         <div class="card-body">
             <ul class="list-group">
                 <li class="list-group-item">
-                    <a href="./manageRoom/index.jsp" class="nav-link">Manage Room</a>
+                    <a href="${pageContext.request.contextPath}/StaffController/index?action=roomindex" class="nav-link">Manage Room</a>
                 </li>
                 <li class="list-group-item">
-                    <a href="./manageBooking/index.jsp" class="nav-link">Manage Bookings</a>
+                    <a href="${pageContext.request.contextPath}/StaffController/booking?action=manageBooking" class="nav-link">Manage Bookings</a>
                 </li>
                 <li class="list-group-item">
-                    <a href="./manageUser/index.jsp" class="nav-link">Manage Users</a>
+                    <a href="${pageContext.request.contextPath}/StaffController/index?action=userindex" class="nav-link">Manage Users</a>
                 </li>
             </ul>
         </div>
         <div class="card-footer text-center">
             <!-- Logout Button -->
-            <form action="./GuestController" method="get">
-                <input type="hidden" name="action" value="logout">
+            <form action="${pageContext.request.contextPath}/StaffController/login" method="get">
+                <input type="hidden" name="action" value="logout_admin">
                 <button type="submit" class="logout-btn">Logout</button>
             </form>
         </div>

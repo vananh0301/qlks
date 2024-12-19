@@ -35,6 +35,14 @@
     </style>
 </head>
 <body>
+<%
+        String currentAdmin = (String) session.getAttribute("currentAdmin");
+        if (currentAdmin == null) {
+            // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập
+            response.sendRedirect("login_admin.jsp");
+            return;
+        }
+    %>
 <div class="container mt-5">
     <h2 class="text-center mb-4">Danh sách User</h2>
     <form id="deleteForm" action="${pageContext.request.contextPath}/StaffController/delete?action=userdelete" method="POST">

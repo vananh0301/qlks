@@ -29,10 +29,12 @@ public class detail extends HttpServlet {
                     UserBO userBO = new UserBO();
                     User user = userBO.getUserDetail(username);
                     System.out.println("user: " + user.getHoten());
-                    if (Objects.equals(user.getUsername(), username)) {
-                        req.setAttribute("user", user);
-                        req.getRequestDispatcher("/staffjsp/manageUser/detail.jsp").forward(req, resp);
-                    } else System.out.println("Cannot");
+                    req.setAttribute("user", user);
+                    req.getRequestDispatcher("/staffjsp/manageUser/detail.jsp").forward(req, resp);
+//                    if (Objects.equals(user.getUsername(), username)) {
+//                        req.setAttribute("user", user);
+//                        req.getRequestDispatcher("/staffjsp/manageUser/detail.jsp").forward(req, resp);
+//                    } else System.out.println("Cannot");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -43,11 +45,13 @@ public class detail extends HttpServlet {
                     System.out.println("doGet nhanvien with id: " + id);
                     RoomBO roomBO = new RoomBO();
                     Room room = roomBO.getRoomDetail(Integer.parseInt(id));
-                    System.out.println("room: " + room.getId());
-                    if (Objects.equals(room.getId(), id)) {
-                        req.setAttribute("room", room);
-                        req.getRequestDispatcher("/staffjsp/manageRoom/detail.jsp").forward(req, resp);
-                    } else System.out.println("Cannot");
+                    req.setAttribute("room", room);
+                    req.getRequestDispatcher("/staffjsp/manageRoom/detail.jsp").forward(req, resp);
+//                    System.out.println("room: " + room.getId());
+//                    if (Objects.equals(room.getId(), id)) {
+//                        req.setAttribute("room", room);
+//                        req.getRequestDispatcher("/staffjsp/manageRoom/detail.jsp").forward(req, resp);
+//                    } else System.out.println("Cannot");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

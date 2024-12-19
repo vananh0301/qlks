@@ -131,6 +131,11 @@ header .nav-links a:hover {
 <%
 	String currentUser = (String) session.getAttribute("currentUser");
 	List<Booking> danhSachBooking = (List<Booking>) request.getAttribute("lichSuBooking");
+	if (currentUser == null) {
+		// Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập
+		response.sendRedirect("${pageContext.request.contextPath}/customerjsp/login.jsp");
+		return;
+	}
 	%>
 
 <header>

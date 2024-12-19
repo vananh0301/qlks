@@ -57,7 +57,7 @@ public class _index extends HttpServlet {
             List<Room> arrayList = roomBO.getAllRooms();
             System.out.println("Size: " + arrayList.size());
             if(!arrayList.isEmpty()){;
-                String destination = "/room/index.jsp";
+                String destination = "/staffjsp/manageRoom/index.jsp";
                 req.setAttribute("room", arrayList);
                 req.getRequestDispatcher(destination).forward(req, resp);
             }

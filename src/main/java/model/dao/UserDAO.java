@@ -28,7 +28,7 @@ public class UserDAO {
                         rs.getString("password"),
                         rs.getString("role"),
                         rs.getString("hoten"),
-                        rs.getString("sdt")
+                        rs.getString("sodienthoai")
                 ));
             }
         } catch (SQLException e) {
@@ -52,7 +52,7 @@ public class UserDAO {
                         rs.getString("password"),
                         rs.getString("role"),
                         rs.getString("hoten"),
-                        rs.getString("sdt")
+                        rs.getString("sodienthoai")
                 );
             }
         } catch (SQLException e) {
@@ -83,7 +83,7 @@ public class UserDAO {
         String role = user.getRole();
         String hoten = user.getHoten();
         String sdt = user.getSdt();
-        String sql = MessageFormat.format("INSERT INTO user(username, password, role, hoten, sdt) VALUES (''{0}'',''{1}'',''{2}'',''{3}'',''{4}'')",username, password, role, hoten, sdt );
+        String sql = MessageFormat.format("INSERT INTO user(username, password, role, hoten, sodienthoai) VALUES (''{0}'',''{1}'',''{2}'',''{3}'',''{4}'')",username, password, role, hoten, sdt );
         boolean add = conn.execute(sql);
         return user;
     }
@@ -95,7 +95,7 @@ public class UserDAO {
         String role = user.getRole();
         String hoten = user.getHoten();
         String sdt = user.getSdt();
-        String sql = MessageFormat.format("UPDATE user SET password=''{0}'',role=''{1}'',hoten=''{2}'',sdt=''{3}'' WHERE username=''{4}''",password, role, hoten, sdt, username );
+        String sql = MessageFormat.format("UPDATE user SET password=''{0}'',role=''{1}'',hoten=''{2}'',sodienthoai=''{3}'' WHERE username=''{4}''",password, role, hoten, sdt, username );
         return conn.executeUpdate(sql);
     }
 
@@ -127,9 +127,9 @@ public class UserDAO {
 		try {
 			String sql;
 		    if (updatePass) {
-		        sql = "update user set hoten = ?, sdt = ?, password = ? where username = ?";
+		        sql = "update user set hoten = ?, sodienthoai = ?, password = ? where username = ?";
 		    } else {
-		        sql = "update user set hoten = ?, sdt = ? where username = ?";
+		        sql = "update user set hoten = ?, sodienthoai = ? where username = ?";
 		    }
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, user.getHoten());
@@ -147,6 +147,21 @@ public class UserDAO {
 			e.printStackTrace();
 			return false;
 		}
+	}
+    public boolean login_admin(String username, String password) {
+		try {
+			String sql = "SELECT * FROM user WHERE username = ? AND password = ? AND role = 'staff'";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, username);
+			ps.setString(2, password);
+
+			ResultSet rs = ps.executeQuery();
+			return rs.next();
+		} catch (Exception e) {
+			System.out.print(e);
+		}
+		return false;
+
 	}
 }
 

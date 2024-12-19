@@ -61,30 +61,41 @@ public class RoomDAO {
 
 	//Thêm phòng
 	public Room addRoom(Room room) throws SQLException {
-		int id = room.getId();
-		String name = room.getName();
-		BigDecimal price = room.getPrice();
-		String status = room.getStatus();
-		String sql = MessageFormat.format("INSERT INTO room(id, tenphong, price, status) VALUES (''{0}'',''{1}'',''{2}'',''{3}'',''{4}'')",id, name, price, status );
-		boolean add = conn.execute(sql);
-		return room;
+	    String sql = "INSERT INTO room(IDPB, Tenphong, price, status) VALUES (?, ?, ?, ?)";
+	    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+	        stmt.setInt(1, room.getId());
+	        stmt.setString(2, room.getName());
+	        stmt.setBigDecimal(3, room.getPrice());
+	        stmt.setString(4, room.getStatus());
+	        int rowsAffected = stmt.executeUpdate();
+	        if (rowsAffected > 0) {
+	            return room;
+	        } else {
+	            return null;
+	        }
+	    }
 	}
 
 
 	//cap nhat phong
 	public int updateRoom(Room room) throws SQLException {
-		int id = room.getId();
-		String name = room.getName();
-		BigDecimal price = room.getPrice();
-		String status = room.getStatus();
-		String sql = MessageFormat.format("UPDATE room SET tenphong=''{0}'',price=''{1}'',status=''{2}'' WHERE username=''{4}''",name, price, status, id );
-		return conn.executeUpdate(sql);
+	    String sql = "UPDATE room SET tenphong = ?, price = ?, status = ? WHERE IDPB = ?";
+	    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+	        stmt.setString(1, room.getName());
+	        stmt.setBigDecimal(2, room.getPrice());
+	        stmt.setString(3, room.getStatus());
+	        stmt.setInt(4, room.getId());
+	        return stmt.executeUpdate();
+	    }
 	}
 
 	// Xóa người dùng
 	public int deleteRoom(int id) throws SQLException {
-		String sql = MessageFormat.format("delete from room where id = ''{0}''", id);
-		return conn.executeUpdate(sql);
+		String sql = "DELETE FROM room WHERE IDPB = ?";
+	    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+	        stmt.setInt(1, id);
+	        return stmt.executeUpdate();
+	    }
 	}
 	public boolean isRoomAvailable(int idp, Timestamp ngaydatTimestamp, Timestamp ngaytraTimestamp) {
 		try {

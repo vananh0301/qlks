@@ -28,4 +28,16 @@ public class BookingBO {
     public List<Booking> getAllBookings() {
         return bookingDAO.getAllBookings();
     }
+    public boolean cancel(int id) {
+	    return bookingDAO.cancel(id);
+	}
+	public boolean checkin(int id) {
+	    return bookingDAO.checkin(id);
+	}
+	public boolean checkout(int id) {
+	    return bookingDAO.checkout(id);
+	}
+	public List<Booking> search(String keyword, String searchBy){
+		return bookingDAO.getSearch(keyword, searchBy);
+	}
 }

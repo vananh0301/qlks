@@ -48,5 +48,8 @@ public class UserBO {
 	public boolean update(User user, boolean updatePass) {
 	    return userDAO.update(user, updatePass);
 	}
+	public boolean login_admin(String username, String password){
+		return userDAO.login_admin(username, password);
+	}
 
 }

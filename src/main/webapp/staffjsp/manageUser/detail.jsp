@@ -9,6 +9,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<%
+        String currentAdmin = (String) session.getAttribute("currentAdmin");
+        if (currentAdmin == null) {
+            // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập
+            response.sendRedirect("login_admin.jsp");
+            return;
+        }
+    %>
 <div class="container mt-5">
     <div class="card">
         <div class="card-header text-center bg-primary text-white">
@@ -45,7 +53,7 @@
             </table>
         </div>
         <div class="card-footer text-center">
-            <a href="${pageContext.request.contextPath}/StaffController/index?action=userindex" class="btn btn-secondary">Trở về trang chủ</a>
+            <a href="${pageContext.request.contextPath}/StaffController/index?action=userindex" class="btn btn-secondary">Quay lại</a>
         </div>
     </div>
 </div>

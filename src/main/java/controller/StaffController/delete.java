@@ -15,7 +15,7 @@ import java.io.Serial;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/StaffController/delele")
+@WebServlet("/StaffController/delete")
 public class delete extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -28,10 +28,10 @@ public class delete extends HttpServlet {
                 try {
                     UserBO userBO = new UserBO();
                     List<User> arrayList = userBO.getAllUsers();
-                    System.out.println("Size: " + arrayList.size());
+                    System.out.println("Size: " + arrayList.size()+"lo");
                     if(!arrayList.isEmpty()){;
-                        String destination = "/staffisp/manageUser/delete.jsp";
-                        req.setAttribute("nhanvien", arrayList);
+                        String destination = "/staffjsp/manageUser/delete.jsp";
+                        req.setAttribute("user", arrayList);
                         req.getRequestDispatcher(destination).forward(req, resp);
                     }
                 } catch (SQLException | ClassNotFoundException e) {
@@ -44,7 +44,7 @@ public class delete extends HttpServlet {
                     List<Room> arrayList = roomBO.getAllRooms();
                     System.out.println("Size: " + arrayList.size());
                     if(!arrayList.isEmpty()){;
-                        String destination = "/staffisp/manageRoom/delete.jsp";
+                        String destination = "/staffjsp/manageRoom/delete.jsp";
                         req.setAttribute("room", arrayList);
                         req.getRequestDispatcher(destination).forward(req, resp);
                     }
@@ -88,7 +88,13 @@ public class delete extends HttpServlet {
                             System.out.println(selectedIds1[i]);
                             roomBO.deleteRoom(Integer.parseInt(selectedIds1[i]));
                         }
-                        resp.sendRedirect(req.getContextPath() + "/StaffController/index");
+                        List<Room> arrayList = roomBO.getAllRooms();
+                        if(!arrayList.isEmpty()){;
+                            String destination = "/staffjsp/manageRoom/index.jsp";
+                            req.setAttribute("room", arrayList);
+                            req.getRequestDispatcher(destination).forward(req, resp);
+                        }
+//                        resp.sendRedirect(req.getContextPath() + "/StaffController/manageRoom/");
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     } catch (ClassNotFoundException e) {

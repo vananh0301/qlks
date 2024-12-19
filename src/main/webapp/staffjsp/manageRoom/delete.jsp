@@ -10,6 +10,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<%
+        String currentAdmin = (String) session.getAttribute("currentAdmin");
+        if (currentAdmin == null) {
+            // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập
+            response.sendRedirect("login_admin.jsp");
+            return;
+        }
+    %>
 <div class="container mt-5">
     <h2 class="mb-4">Danh Sách Phòng</h2>
     <form id="deleteForm" action="${pageContext.request.contextPath}/StaffController/delete?action=roomdelete" method="POST">
@@ -45,7 +53,7 @@
             </tbody>
         </table>
         <button type="button" class="btn btn-danger" onclick="submitSelected()">Xoá Lựa Chọn</button>
-        <a href="${pageContext.request.contextPath}/StaffController/index?action=roomindex" class="btn btn-secondary">Trở Về Trang Chủ</a>
+        <a href="${pageContext.request.contextPath}/StaffController/index?action=roomindex" class="btn btn-secondary">Quay lại</a>
     </form>
 </div>
 
